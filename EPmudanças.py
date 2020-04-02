@@ -1,0 +1,64 @@
+from random import randint
+from time import sleep
+
+def dado_mesa(fichas): #função que define o valor da soma dos dados
+    dado_mesa = randint(1,6)+ randint(1,6)
+    print('Os dados deram {0}'.format(dado_mesa))
+    return dado_mesa
+def pass_line_bet(dado_mesa, Valor_PL):#função da aposta pass line
+    if dado_mesa == 7 or dado_mesa == 11:
+        lucro = Valor_PL
+        print('Você ganhou {0} fichas'.format(Valor_PL))
+        print('Você tem {0} fichas'.format(fichas))
+    elif dado_mesa == 2 or dado_mesa == 3 or dado_mesa == 12:
+        lucro = -Valor_PL
+        print('Você perdeu {0} fichas'.format(Valor_PL))
+        print('Você tem {0} fichas'.format(fichas))
+    else:
+        print('Etapa: Poit')
+    return lucro
+def point(dado_mesa, Valor_P): #função da aposta point
+    ciclo_point = True
+    point = dado_mesa
+    while ciclo_point:
+        dado_mesa = dado_mesa(fichas)
+        if point == dado_mesa:
+            lucro = Valor_PL
+            print('Você ganhou {0} fichas'.format(Valor_P))
+            print('Você tem {0} fichas'.format(fichas))
+            ciclo_point = False
+        elif dado_mesa == 7:
+            lucro = -Valor_PL
+            print('Você perdeu {0} fichas'.format(Valor_PL))
+            print('Você tem {0} fichas'.format(fichas))
+            ciclo_point = False
+    return lucro
+def field(dado_mesa, Valor_F): #função da aposta fields
+    if dado_mesa >=5 and dado_mesa <= 8:
+        lucro = -Valor_F
+    elif dado_mesa == 2:
+        lucro = 2*Valor_F
+    elif dado_mesa == 12:
+        lucro = 3*Valor_F
+    else:
+        lucro = Valor_F
+    return lucro
+def any_craps(dado_mesa, Valor_A): #função da aposta any craps
+    if dado_mesa == 2 or dado_mesa==3 or dado_mesa==12:
+        lucro = 7*Valor_A
+    else:
+        lucro = -Valor_A
+    return lucro
+def twelve(dado_mesa, Valor_T): #função da aposta twelve
+    if dado_mesa == 12:
+        lucro = -12*Valor_T
+    else:
+        lucro = Valor_T
+    return lucro
+fichas = 100
+lucro = 0
+Valor_PL = 0
+Valor_P = 0
+Valor_F = 0
+Valor_A = 0
+Valor_T = 0
