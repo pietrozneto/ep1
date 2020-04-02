@@ -1,5 +1,4 @@
 from random import randint
-from time import sleep
 
 def dado_mesa(fichas): #função que define o valor da soma dos dados
     dado_mesa = randint(1,6)+ randint(1,6)
@@ -62,3 +61,26 @@ Valor_P = 0
 Valor_F = 0
 Valor_A = 0
 Valor_T = 0
+PL = False
+F = False
+A = False
+T = False
+print('Pass Line Bet, Field, Any Craps, Twelvez (PL/F/A/T)')
+x = input('Qual aposta tipo de aposta deseja fazer? ')
+while x!='nao':
+    if x == 'PL':
+        PL = True
+        Valor_PL = int(input('Quanto deseja apostar? '))
+    elif x == 'F':
+        F = True
+        Valor_F = int(input('Quanto deseja apostar? '))
+    elif x == 'A':
+        A = True
+        Valor_A = int(input('Quanto deseja apostar? '))
+    elif x == 'T':
+        T = True
+        Valor_T = int(input('Quanto deseja apostar? '))
+    else:
+        break
+    print('Pass Line Bet, Field, Any Craps, Twelvez (PL/F/A/T)')
+    x = input('Qual aposta tipo de aposta deseja fazer? ')
