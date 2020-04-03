@@ -7,10 +7,9 @@ def dado_mesa(fichas): #função que define o valor da soma dos dados
 def pass_line_bet(dado_mesa, Valor_PL):#função da aposta pass line
     lucro = 0
     if dado_rodada == 7 or dado_rodada == 11:
-        lucro = Valor_PL
+        lucro = 2*Valor_PL
         print('Você ganhou {0} fichas'.format(Valor_PL))
     elif dado_rodada == 2 or dado_rodada == 3 or dado_rodada == 12:
-        lucro = -Valor_PL
         print('Você perdeu {0} fichas'.format(Valor_PL))
     else:
         print('Etapa: Poit')
@@ -24,7 +23,7 @@ def point(dado_point, Valor_P): #função da aposta point
     while ciclo_point:
         dado_rodada_point = dado_mesa(fichas)
         if dado_point == dado_rodada_point:
-            lucro = Valor_PL
+            lucro = 2*Valor_PL
             print('Você ganhou {0} fichas'.format(Valor_PL))
             ciclo_point = False
         elif dado_rodada_point == 7:
@@ -56,7 +55,7 @@ def twelve(dado_rodada, Valor_T): #função da aposta twelve
         lucro = 12*Valor_T        
     return lucro
 fichas = 100
-lucro = 0
+lucro_total = 0
 Valor_PL = 0
 Valor_F = 0
 Valor_A = 0
@@ -69,27 +68,34 @@ sair_do_programa = 'nao'
 x = 'sim'
 while sair_do_programa == 'nao':
     if PL or F or A or T:
-        print('Você tem {} fichas'.format(fichas))
         dado_rodada = dado_mesa(fichas)
         sleep(1)
     if PL == True:
-        lucro += pass_line_bet(dado_rodada, Valor_PL)
+        lucro_total += pass_line_bet(dado_rodada, Valor_PL)
         sleep(1)
     if F == True:
-        lucro += field(dado_rodada, Valor_F)
+        lucro_total += field(dado_rodada, Valor_F)
         sleep(1)
     if A == True:
-        lucro += any_craps(dado_rodada, Valor_A)
+        lucro_total += any_craps(dado_rodada, Valor_A)
         sleep(1)
     if T == True:
-        lucro += twelve(dado_rodada, Valor_T)
+        lucro_total += twelve(dado_rodada, Valor_T)
         sleep(1)
-    fichas += lucro
+    fichas += lucro_total
+    print('Você tem {} fichas'.format(fichas))
     lucro = 0
     PL = False
     F = False
     A = False
     T = False
+    Valor_PL = 0
+    Valor_F = 0
+    Valor_A = 0
+    Valor_T = 0
+    if fichas == 0:
+        print('Suas fichas acabaram ')
+        break
     if x =='nao':
         sair_do_programa = input('Deseja sair do programa? (sim/nao) ')
     x = 'sim'
@@ -124,6 +130,7 @@ while sair_do_programa == 'nao':
             print('Pass Line Bet, Field, Any Craps, Twelvez, Não (PL/F/A/T/nao)')
             x = input('Deseja fazer outra aposta ? ')
         else:
+            print('Essa não é uma aposta valida')
             sair_do_programa = 'sim'
             break
         x = input('Deseja fazer outra aposta ? (sim/nao) ')
