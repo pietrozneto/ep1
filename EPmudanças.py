@@ -5,6 +5,7 @@ def dado_mesa(fichas): #função que define o valor da soma dos dados
     print('Os dados deram {0}'.format(dado_mesa))
     return dado_mesa
 def pass_line_bet(dado_mesa, Valor_PL):#função da aposta pass line
+    lucro = 0
     if dado_rodada == 7 or dado_rodada == 11:
         lucro = Valor_PL
         print('Você ganhou {0} fichas'.format(Valor_PL))
@@ -14,52 +15,49 @@ def pass_line_bet(dado_mesa, Valor_PL):#função da aposta pass line
     else:
         print('Etapa: Poit')
         sleep(1)
-        Valor_P = Valor_PL
-        Valor_PL = 0
         dado_point = dado_rodada
         lucro = point(dado_point, Valor_PL)
     return lucro
 def point(dado_point, Valor_P): #função da aposta point
+    lucro = 0
     ciclo_point = True
     while ciclo_point:
         dado_rodada_point = dado_mesa(fichas)
         if dado_point == dado_rodada_point:
             lucro = Valor_PL
-            print('Você ganhou {0} fichas'.format(Valor_P))
-            print('Você tem {0} fichas'.format(fichas))
+            print('Você ganhou {0} fichas'.format(Valor_PL))
             ciclo_point = False
         elif dado_rodada_point == 7:
-            lucro = -Valor_PL
             print('Você perdeu {0} fichas'.format(Valor_PL))
-            print('Você tem {0} fichas'.format(fichas))
             ciclo_point = False
     return lucro
 def field(dado_rodada, Valor_F): #função da aposta fields
+    lucro = 0
     if dado_rodada >=5 and dado_rodada <= 8:
-        lucro = -Valor_F
+        print('Você ganhou {0} fichas'.format(Valor_F))
     elif dado_rodada == 2:
-        lucro = 2*Valor_F
-    elif dado_rodada == 12:
         lucro = 3*Valor_F
+        print('Você ganhou {0} fichas'.format(Valor_F))
+    elif dado_rodada == 12:
+        lucro = 4*Valor_F
+        print('Você ganhou {0} fichas'.format(Valor_F))
     else:
-        lucro = Valor_F
+        lucro = 2*Valor_F
+        print('Você ganhou {0} fichas'.format(Valor_F))
     return lucro
 def any_craps(dado_rodada, Valor_A): #função da aposta any craps
+    lucro = 0
     if dado_rodada == 2 or dado_rodada==3 or dado_rodada==12:
         lucro = 7*Valor_A
-    else:
-        lucro = -Valor_A
     return lucro
 def twelve(dado_rodada, Valor_T): #função da aposta twelve
+    lucro = 0
     if dado_rodada == 12:
-        lucro = -12*Valor_T
-    else:
-        lucro = Valor_T
+        lucro = 12*Valor_T        
     return lucro
 fichas = 100
 lucro = 0
 Valor_PL = 0
-Valor_P = 0
 Valor_F = 0
 Valor_A = 0
 Valor_T = 0
@@ -67,9 +65,9 @@ PL = False
 F = False
 A = False
 T = False
-continuar_apostando = 'sim'
+sair_do_programa = 'nao'
 x = 'sim'
-while continuar_apostando == 'nao':
+while sair_do_programa == 'nao':
     if PL or F or A or T:
         print('Você tem {} fichas'.format(fichas))
         dado_rodada = dado_mesa(fichas)
@@ -92,12 +90,16 @@ while continuar_apostando == 'nao':
     F = False
     A = False
     T = False
+    if x =='nao':
+        sair_do_programa = input('Deseja sair do programa? (sim/nao) ')
     x = 'sim'
     while x!='nao':
+        if sair_do_programa == 'sim':
+            break
         print('Você tem {} fichas'.format(fichas))
         if x == 'sim':
-            print('Pass Line Bet, Field, Any Craps, Twelvez, Não (PL/F/A/T)')
-            x = input('Qual aposta deseja fazer outra aposta ? ')
+            print('Pass Line Bet, Field, Any Craps, Twelvez (PL/F/A/T)')
+            x = input('Qual aposta deseja fazer ? ')
         if x == 'PL':
             PL = True
             print('Você tem {} fichas'.format(fichas))
@@ -122,6 +124,7 @@ while continuar_apostando == 'nao':
             print('Pass Line Bet, Field, Any Craps, Twelvez, Não (PL/F/A/T/nao)')
             x = input('Deseja fazer outra aposta ? ')
         else:
+            sair_do_programa = 'sim'
             break
-        x = input('Deseja continuar apostando? (sim/nao) ')
+        x = input('Deseja fazer outra aposta ? (sim/nao) ')
 print('cabo')
